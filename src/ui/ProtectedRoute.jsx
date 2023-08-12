@@ -25,6 +25,8 @@ function ProtectedRoute({ children }) {
   // 3. While loading, show a spinner
   if (isLoading) return <Loading />;
 
+  if (isAuthenticated) {
+    
   switch (user.email) {
     case 'mnourib13@gmail.com':
       userName = 'mehrdad';
@@ -41,7 +43,6 @@ function ProtectedRoute({ children }) {
   }
 
   // 4. If there IS a user, render the app
-  if (isAuthenticated) {
     return (
       <userContext.Provider value={{ userName }}>
         {children}
