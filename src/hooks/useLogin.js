@@ -13,7 +13,6 @@ export function useLogin() {
     onSuccess: (user) => {
       queryClient.setQueryData(['user'], user.user);
       navigate('/', { replace: true });
-      toast.success('👋 Welcome')
     },
     onError: (err) => {
       toast.error('Provided email or password are incorrect');

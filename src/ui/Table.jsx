@@ -50,11 +50,11 @@ function Row({ children, className = '' }) {
   if (columns)
     return (
       <tr
-        style={{ gridTemplateColumns: columns }}
+        style={{ gridTemplateColumns: columns, fontSize: '5px' }}
         className={
           className +
           ' ' +
-          `grid sm:text-lg lg:text-lg w-full border-b-2 px-2 py-3 sm:py-4 font-medium hover:bg-slate-800
+          `grid sm:text-lg lg:!text-lg w-full border-b-2 px-2 py-3 sm:py-4 font-medium hover:bg-slate-800
          transition-all sm:px-4 text-center sm:text-left duration-300 last:border-b-0`
         }
       >

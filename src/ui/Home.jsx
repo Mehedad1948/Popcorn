@@ -4,7 +4,7 @@ import Loading from './Loading';
 import RowBody from './RowBody';
 import Table from './Table';
 import TableOperations from './TableOperations';
-import { userContext } from '../utils/ContextProvider';
+import { userContext } from './ProtectedRoute';
 
 function Home() {
   const { data, isLoading } = useMovie();
