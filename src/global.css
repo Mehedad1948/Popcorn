@@ -8,8 +8,12 @@
                 text-center sm:text-left focus:outline-none focus:border-[#6741d9];
   }
   body {
-    @apply bg-gradient-to-tr from-blue-950 to-black bg-fixed p-3 sm:p-6 
-          cursor-default selection:bg-purple-700;
+    @apply bg-gradient-to-tr from-blue-950 to-black bg-fixed p-3 sm:p-6 font-medium text-white
+          cursor-default selection:bg-purple-700 tracking-wide;
+  }
+
+  th {
+    @apply text-sm sm:text-base tracking-wider
   }
 }
 

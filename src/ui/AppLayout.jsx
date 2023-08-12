@@ -1,27 +1,34 @@
-import { useRef } from 'react';
-import {  NavLink, Outlet } from 'react-router-dom';
+import { useContext, useRef } from 'react';
+import { Link, NavLink, Outlet } from 'react-router-dom';
+import { userContext } from './ProtectedRoute';
 
 function AppLayout() {
   return (
     <div>
       <NavBar />
-      <div className='w-full mt-4'>
-      <Outlet />
-      
+      <div className='w-full my-4 mb-11 sm:mb-4'>
+        <Outlet />
       </div>
+      <Footer />
     </div>
   );
 }
 
 function NavBar({ children }) {
+  const { userName } = useContext(userContext);
   return (
-    <nav className='nav-bar flex items-center justify-between py-4 px-3 sm:px-6 rounded-lg'>
+    <nav
+      className='nav-bar flex items-center justify-between py-1.5 sm:py-4 px-3 sm:px-6 
+                    bg-gradient-to-r from-purple-700 to-indigo-900 rounded sm:rounded-lg'
+    >
       <Logo />
-      <div className='flex gap-5 sm:gap-10 sm:text-lg items-center justify-center font-semibold text-white'>
+      <div className='gap-5 sm:gap-10 hidden sm:flex sm:!text-lg items-center justify-center 
+              font-semibold text-white'>
         <NavLink to='/'>Home</NavLink>
         <NavLink to='/addMovie'>Add Movie</NavLink>
         <NavLink to='/rate'>Rate Movie</NavLink>
       </div>
+      <span className='capitalize'>{userName}</span>
       {children}
     </nav>
   );
@@ -33,7 +40,21 @@ function Logo() {
       <span className='text-2xl' role='img'>
         🍿
       </span>
-      <h1 className='text-2xl sm:block hidden font-semibold text-white'>usePopcorn</h1>
+      <h1 className='sm:text-2xl text-lg font-semibold text-white'>Paradiso</h1>
+    </div>
+  );
+}
+
+function Footer(params) {
+  return (
+    <div
+      className='fixed bottom-0 left-0 w-full bg-purple-700/20 backdrop-blur-lg py-3 sm:hidden
+                    flex items-center justify-center gap-5 rounded-t-xl'
+    >
+      <NavLink to='/'>Home</NavLink>
+      <NavLink to='/addMovie'>Add Movie</NavLink>
+      <NavLink to='/rate'>Rate Movie</NavLink>
+      <Link to='/login'>Login</Link>
     </div>
   );
 }

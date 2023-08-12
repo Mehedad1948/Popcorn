@@ -4,8 +4,8 @@ import { useUser } from '../hooks/useUser';
 import Loading from './Loading';
 import RowBody from './RowBody';
 import Table from './Table';
-import { userContext } from '../utils/ContextProvider';
 import { useRate } from '../hooks/useRate';
+import { userContext } from './ProtectedRoute';
 
 function RateMovie() {
   const { data, isLoading } = useMovie();

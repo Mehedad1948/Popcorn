@@ -13,9 +13,7 @@ const router = createBrowserRouter([
   {
     element: (
       <ProtectedRoute>
-        <ContextProvider>
           <AppLayout />
-        </ContextProvider>
       </ProtectedRoute>
     ),
     children: [
