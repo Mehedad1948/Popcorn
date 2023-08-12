@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  input {
+    @apply bg-slate-800 border-2  w-full border-blue-400 py-0.5 px-2 rounded text-lg
+                text-center sm:text-left focus:outline-none focus:border-[#6741d9];
+  }
+  body {
+    @apply bg-gradient-to-tr from-blue-950 to-black bg-fixed p-3 sm:p-6 
+          cursor-default selection:bg-purple-700;
+  }
+}
+
+.active{
+  @apply border-b-2 border-sky-300 
+}
+
+.loader {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.loader:before , .loader:after{
+  content: '';
+  border-radius: 50%;
+  position: absolute;
+  inset: 0;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.3) inset;
+}
+.loader:after {
+  box-shadow: 0 4px 0 #0378ff inset;
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  0% {  transform: rotate(0)}
+  100% { transform: rotate(360deg)}
+}
