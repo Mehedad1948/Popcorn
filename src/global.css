@@ -12,6 +12,10 @@
           cursor-default selection:bg-purple-700 tracking-wide;
   }
 
+  html {
+    @apply bg-gradient-to-tr from-blue-950 to-black  min-h-screen
+  }
+
   th {
     @apply text-sm sm:text-base tracking-wider
   }

@@ -1,3 +1,4 @@
+import { data } from 'autoprefixer';
 import supabase, { supabaseUrl } from './supabase';
 
 export async function getMovies(params) {
@@ -9,10 +10,10 @@ export async function getMovies(params) {
   return data;
 }
 
-export async function addMovie({ year, movie, imdb }) {
+export async function addMovie({ year, movie, imdb, watchedTogether }) {
   const { data, error } = await supabase
     .from('movies')
-    .insert([{ year, movie, imdb }])
+    .insert([{ year, movie, imdb, watchedTogether }])
     .select();
 
   if (error) {
@@ -22,11 +23,11 @@ export async function addMovie({ year, movie, imdb }) {
 }
 
 export async function rateMovie({ updateObj, movieId }) {
-  const rate = Object.values(updateObj)[0]
+  const rate = Object.values(updateObj)[0];
   if (rate > 10 || rate < 0) {
-    throw new Error('Invalid Rate')
+    throw new Error('Invalid Rate');
   }
-  
+
   const { data, error } = await supabase
     .from('movies')
     .update(updateObj)
@@ -40,13 +41,27 @@ export async function rateMovie({ updateObj, movieId }) {
 }
 
 export async function deletMovie(id) {
-  const { error } = await supabase
-  .from('movies')
-  .delete()
-  .eq('id', id)
+  const { error } = await supabase.from('movies').delete().eq('id', id);
 
   if (error) {
-    throw new Error(error.message)
+    throw new Error(error.message);
   }
-
 }
+
+const publicImageUrl =
+  'https://pryognxulvntjaoeghoc.supabase.co/storage/v1/object/public/public-images/';
+
+export async function getimages(params) {
+  const { data, error } = await supabase.storage.from('public-images').list();
+
+  if (error) {
+    console.log(error);
+  }
+  const imagesUrl = data.map((image) => {
+    return {url: publicImageUrl + image.name, name: image.name}
+  });
+  imagesUrl.unshift({name: ''})
+
+  return { imagesUrl };
+}
+

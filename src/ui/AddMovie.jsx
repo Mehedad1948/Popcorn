@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { AiOutlineClose } from 'react-icons/ai';
 import { useAddMovie } from '../hooks/useAddMovie';
 import { toast } from 'react-hot-toast';
 import Modal from './Modal';
@@ -9,6 +8,7 @@ function AddMovie() {
   const [movie, setmovie] = useState('');
   const [year, setYear] = useState(2023);
   const [imdb, setImdb] = useState(5);
+  const [watchedTogether, setWatchedTogether] = useState(false);
 
   const { addMovie, isAddingMovie } = useAddMovie();
 
@@ -28,7 +28,7 @@ function AddMovie() {
       setShowModal(false);
       return;
     }
-    addMovie({ year, imdb, movie });
+    addMovie({ year, imdb, movie, watchedTogether });
     setShowModal(false);
   }
 
@@ -38,7 +38,7 @@ function AddMovie() {
   }
 
   return (
-    <div className='border-2 px-4 py-4 border-blue-400 rounded-lg mt-5'>
+    <div className='border-2 px-4 max-w-lg py-4 border-blue-400 rounded-lg mt-5'>
       <span className='hidden'></span>
       {/* {showModal && ( */}
       <Modal
@@ -47,6 +47,7 @@ function AddMovie() {
         year={year}
         imdb={imdb}
         movie={movie}
+        watchedTogether={watchedTogether}
         showModal={showModal}
       />
       {/* )} */}
@@ -80,6 +81,15 @@ function AddMovie() {
             required
           />
         </FormInput>
+        <div className='flex items-center gap-3'>
+          <label className=' font-medium text-white'>Watched Together:</label>
+          <input
+            className='w-4 aspect-square accent-blue-7400 bg-slate-400 rounded'
+            onChange={(e) => setWatchedTogether(e.target.checked)}
+            type='checkbox'
+          />
+        </div>
+
         <button
           onClick={handleSubmit}
           className='bg-[#6741d9] w-full sm:w-fit px-3 py-2 rounded cursor-pointer
@@ -94,7 +104,10 @@ function AddMovie() {
 
 function FormInput({ children, label }) {
   return (
-    <label className='peer grid place-items-center gap-1 sm:grid-cols-[0.4fr,_1fr] font-medium text-white'>
+    <label
+      className='peer grid place-items-center gap-1 sm:grid-cols-[0.4fr,_1fr] font-medium
+                  text-left text-white sm:place-items-start'
+    >
       <span className='peer-focus:text-[#6741d9] w-max'>{label}</span>
       {children}
     </label>

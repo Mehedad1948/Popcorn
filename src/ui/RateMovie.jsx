@@ -1,8 +1,6 @@
 import { useContext, useState } from 'react';
 import { useMovie } from '../hooks/useMovies';
-import { useUser } from '../hooks/useUser';
 import Loading from './Loading';
-import RowBody from './RowBody';
 import Table from './Table';
 import { useRate } from '../hooks/useRate';
 import { userContext } from './ProtectedRoute';
@@ -11,21 +9,27 @@ function RateMovie() {
   const { data, isLoading } = useMovie();
   const [filter, setFilter] = useState(false);
   const { userName } = useContext(userContext);
+  const [ratingMovie, setRatingMovie] = useState('');
   const { rateMovie, isRating } = useRate();
 
   const filteredMovies = filter
-    ? data?.filter((movie) => movie[userName] > 0)
+    ? data?.filter((movie) => movie[userName] === 0)
     : data;
+
+  function hadleRate(rateObj) {
+    rateMovie(rateObj);
+    setRatingMovie(rateObj.movieId);
+  }
 
   if (isLoading) {
     <Loading />;
   }
   return (
     <div className='max-w-2xl'>
-      <div className='py-3 flex justify-end'>
+      <div className='pb-3 flex justify-end'>
         <button
           onClick={() => setFilter((s) => !s)}
-          className='bg-[#6741d9] w-fit px-3 py-3 rounded cursor-pointer text-white
+          className='bg-[#6741d9] text-sm sm:text-base w-fit px-3 py-3 rounded cursor-pointer text-white
            hover:bg-[#5434b6] col-span-2 mr-0 mx-auto font-semibold'
         >
           {filter ? 'Show all' : 'Show unrated movies'}
@@ -53,25 +57,31 @@ function RateMovie() {
                 index={index}
                 rateMovie={rateMovie}
                 isRating={isRating}
+                hadleRate={hadleRate}
+                ratingMovie={ratingMovie}
               />
             )}
           />
-          <Table.Footer></Table.Footer>
+          {/* <Table.Footer></Table.Footer> */}
         </Table>
       </div>
     </div>
   );
 }
 
-function RowRate({ index, movie, userName, rateMovie, isRating }) {
+function RowRate({ index, movie, userName, isRating, hadleRate, ratingMovie }) {
   const [movieRate, setMovieRate] = useState(movie[userName]);
   return (
     <Table.Row>
-      <td className='flex items-center justify-center sm:justify-start'>{index + 1}</td>
-      <td className='flex items-center justify-center sm:justify-start'>{movie.movie}</td>
-      <td className='flex justify-center'>
+      <td className='flex items-center justify-center sm:justify-start'>
+        {index + 1}
+      </td>
+      <td className='flex items-center text-left justify-start'>
+        {movie.movie}
+      </td>
+      <td className='flex items-center justify-center'>
         <input
-          className='text-center w-16 sm:w-28  mx-auto'
+          className='text-center w-16 sm:w-28 h-fit mx-auto py-0.5 sm:py-1'
           type='number'
           value={movieRate}
           onChange={(e) => setMovieRate(e.target.value)}
@@ -80,15 +90,20 @@ function RowRate({ index, movie, userName, rateMovie, isRating }) {
       <td className='flex  justify-center'>
         <button
           onClick={() =>
-            rateMovie({
+            hadleRate({
               movieId: movie.id,
               updateObj: { [userName]: movieRate },
             })
           }
-          className='bg-[#6741d9] w-fit px-3 py-1.5 rounded cursor-pointer text-white text-sm sm:text-base
-           hover:bg-[#5434b6] col-span-2 font-semibold hover:ring-2 ring-orange-500'
+          className=' w-fit  cursor-pointer text-white text-sm sm:text-base
+             items-center flex  col-span-2 font-semibold '
         >
-          {isRating ? 'Raing...' : 'Submit'}
+          <span
+            className='h-fit bg-[#6741d9] rounded hover:bg-[#5434b6]
+                       hover:ring-2 ring-orange-500 px-3 py-1.5'
+          >
+            {isRating && ratingMovie === movie.id ? 'Rating...' : 'Submit'}
+          </span>
         </button>
       </td>
     </Table.Row>

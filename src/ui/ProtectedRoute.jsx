@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import { useUser } from '../hooks/useUser';
 import { createContext, useEffect } from 'react';
 import Loading from './Loading';
-import { toast } from 'react-hot-toast';
 
 export const userContext = createContext();
 
@@ -35,7 +34,7 @@ function ProtectedRoute({ children }) {
       userName = 'ali';
       break;
     case 'mnourib.13@gmail.com':
-      userName = 'mehrdad';
+      userName = 'mehdi';
       break;
 
     default:

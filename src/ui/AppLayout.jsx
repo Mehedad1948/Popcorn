@@ -1,4 +1,4 @@
-import { useContext, useRef } from 'react';
+import { useContext } from 'react';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import { userContext } from './ProtectedRoute';
 
@@ -27,6 +27,7 @@ function NavBar({ children }) {
         <NavLink to='/'>Home</NavLink>
         <NavLink to='/addMovie'>Add Movie</NavLink>
         <NavLink to='/rate'>Rate Movie</NavLink>
+        <Link to='/login'>Login</Link>
       </div>
       <span className='capitalize'>{userName}</span>
       {children}

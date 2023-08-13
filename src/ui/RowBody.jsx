@@ -5,9 +5,13 @@ import { useEffect, useState } from 'react';
 function RowBody({ movie, index, userName }) {
   const { deleteMovie, isLoading } = useDeleteMovie();
   const [shouldHide, setShouldHide] = useState(false);
+  const [isEveryBodyRated, setIsEveryBodyRated] = useState(false);
 
   useEffect(() => {
     if (movie[userName] === 0) setShouldHide(true);
+    if (movie.ali !== 0 && movie.mehdi !== 0 && movie.mehrdad !== 0) {
+      setIsEveryBodyRated(true);
+    }
   }, [shouldHide, userName, movie]);
 
   function setColor(rate) {
@@ -18,11 +22,13 @@ function RowBody({ movie, index, userName }) {
   return (
     <Table.Row>
       <td>{index + 1}</td>
-      <td className='text-left'>{movie.movie} - {movie.year}</td>
+      <td className='text-left'>
+        {movie.movie} - {movie.year}
+      </td>
       <td
         className={
           shouldHide && userName !== 'ali' && movie.ali !== 0
-            ? 'blur-[4px]'
+            ? 'blur-[5px]'
             : ''
         }
       >
@@ -38,14 +44,14 @@ function RowBody({ movie, index, userName }) {
       <td
         className={
           shouldHide && userName !== 'mehdi' && movie.mehdi !== 0
-            ? 'blur-[4px]'
+            ? 'blur-[5px]'
             : ''
         }
       >
         <span
           className=' border-b-2  px-2 rounded-full'
           style={{
-            borderColor: setColor(movie.ali),
+            borderColor: setColor(movie.mehdi),
           }}
         >
           {movie.mehdi}
@@ -54,29 +60,33 @@ function RowBody({ movie, index, userName }) {
       <td
         className={
           shouldHide && userName !== 'mehrdad' && movie.mehrdad !== 0
-            ? 'blur-[4px]'
+            ? 'blur-[5px]'
             : ''
         }
       >
         <span
           className=' border-b-2  px-2 rounded-full'
           style={{
-            borderColor: setColor(movie.ali),
+            borderColor: setColor(movie.mehrdad),
           }}
         >
           {movie.mehrdad}
         </span>
       </td>
-      <td className='flex jus gap-3'>
+      <td className='flex justify-center sm:justify-start gap-3'>
         <span
-          className=' border-b-2  px-2 rounded-full'
+          className={
+            (setIsEveryBodyRated ? 'blur-[5px]' : '') +
+            ' ' +
+            'border-b-2 h-fit px-2 rounded-full'
+          }
           style={{
-            borderColor: setColor(movie.ali),
+            borderColor: setColor(movie.total),
           }}
         >
           {movie.total}
         </span>
-        {movie.total < 6 && (
+        {movie.total < 6 && !setIsEveryBodyRated && (
           <img className='h-7 rounded-full' src='/pish.jpg' alt='💩' />
         )}
         {movie.total > +8.5 && <span>🌟</span>}
@@ -85,7 +95,7 @@ function RowBody({ movie, index, userName }) {
         <span
           className=' border-b-2  px-2 rounded-full'
           style={{
-            borderColor: setColor(movie.ali),
+            borderColor: setColor(movie.imdb),
           }}
         >
           {movie.imdb}

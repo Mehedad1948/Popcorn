@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addMovie as addMovieApi } from '../services/moviesApi';
-import { Toaster, toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 
 export function useAddMovie(params) {
     const queyClient = useQueryClient()

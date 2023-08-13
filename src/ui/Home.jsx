@@ -6,13 +6,15 @@ import Table from './Table';
 import TableOperations from './TableOperations';
 import { userContext } from './ProtectedRoute';
 
+
 function Home() {
-  const { data, isLoading } = useMovie();
+  const { data, count, isLoading } = useMovie();
 
   const { userName } = useContext(userContext);
 
+
   if (isLoading) {
-   return <Loading />;
+    return <Loading />;
   }
 
   return (
@@ -21,11 +23,11 @@ function Home() {
       <div className='w-full h-full overflow-x-auto rounded-md sm:rounded-lg border-2 border-blue-400 drop-shadow-md'>
         <Table
           style='secondary'
-          columns={`0.3fr 1fr 0.5fr 0.5fr 0.8fr 0.5fr 0.5fr 0.2fr`}
+          columns={`0.2fr 1.1fr 0.5fr 0.5fr 0.7fr 0.5fr 0.5fr 0.2fr`}
         >
           <Table.Header>
             <th>#</th>
-            <th className='text-left'>Movie</th>
+            <th className='text-left'>Movie ( {count} )</th>
             <th>Ali</th>
             <th>Mehdi</th>
             <th>Mehrdad</th>

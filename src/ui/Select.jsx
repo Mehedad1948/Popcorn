@@ -12,7 +12,8 @@ function Select({ options, value, onChange, ...props }) {
         className={
           (isActive ? 'ring-2' : '') +
           ' ' +
-          'rounded  bg-purple-700 text-sm sm:text-base ring-orange-500 border focus:outline-none active:outline-none border-blue-400 px-2 py-2'
+          `rounded  bg-purple-700 text-sm sm:text-base ring-orange-500 border 
+                focus:outline-none active:outline-none border-blue-400 px-2 py-1.5 sm:py-2`
         }
         value={value}
         onChange={onChange}

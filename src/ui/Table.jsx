@@ -7,7 +7,7 @@ export const TableContext = createContext();
 const tableStyle = {
   container: {
     primary: `rounded-lg  border-blue-400 drop-shadow-md`,
-    secondary: `min-w-[750px]`,
+    secondary: `min-w-[800px]`,
   },
   header: {
     primary: `!bg-[#6741d9]`,
@@ -50,11 +50,11 @@ function Row({ children, className = '' }) {
   if (columns)
     return (
       <tr
-        style={{ gridTemplateColumns: columns, fontSize: '5px' }}
+        style={{ gridTemplateColumns: columns }}
         className={
           className +
           ' ' +
-          `grid sm:text-lg lg:!text-lg w-full border-b-2 px-2 py-3 sm:py-4 font-medium hover:bg-slate-800
+          `grid  sm:text-base lg:!text-lg w-full border-b-2 border-blue-400 px-2 py-2 sm:py-4 font-medium hover:bg-slate-800
          transition-all sm:px-4 text-center sm:text-left duration-300 last:border-b-0`
         }
       >

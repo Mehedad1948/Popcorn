@@ -1,5 +1,5 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 
 import AppLayout from './ui/AppLayout';
 import Home from './ui/Home';
@@ -7,13 +7,12 @@ import AddMovie from './ui/AddMovie';
 import Login from './Login';
 import RateMovie from './ui/RateMovie';
 import ProtectedRoute from './ui/ProtectedRoute';
-import ContextProvider from './utils/ContextProvider';
 
 const router = createBrowserRouter([
   {
     element: (
       <ProtectedRoute>
-          <AppLayout />
+        <AppLayout />
       </ProtectedRoute>
     ),
     children: [
