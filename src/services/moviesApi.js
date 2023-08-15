@@ -1,13 +1,20 @@
-import { data } from 'autoprefixer';
-import supabase, { supabaseUrl } from './supabase';
+import supabase from './supabase';
 
-export async function getMovies(params) {
-  let { data, error } = await supabase.from('movies').select('*');
+
+export async function getMovies() {
+  let query = supabase.from('movies').select('*', { count: 'exact' });
+
+  // const from = (page - 1) * PAGE_SIZE;
+  // const to = from + PAGE_SIZE - 1;
+  // query = query.range(from, to);
+
+  const { data, error, count } = await query;
 
   if (error) {
     console.log('Error', error);
   }
-  return data;
+
+  return data
 }
 
 export async function addMovie({ year, movie, imdb, watchedTogether }) {
@@ -48,20 +55,19 @@ export async function deletMovie(id) {
   }
 }
 
-const publicImageUrl =
-  'https://pryognxulvntjaoeghoc.supabase.co/storage/v1/object/public/public-images/';
+// const publicImageUrl =
+//   'https://pryognxulvntjaoeghoc.supabase.co/storage/v1/object/public/public-images/';
 
-export async function getimages(params) {
-  const { data, error } = await supabase.storage.from('public-images').list();
+// export async function getimages(params) {
+//   const { data, error } = await supabase.storage.from('public-images').list();
 
-  if (error) {
-    console.log(error);
-  }
-  const imagesUrl = data.map((image) => {
-    return {url: publicImageUrl + image.name, name: image.name}
-  });
-  imagesUrl.unshift({name: ''})
+//   if (error) {
+//     console.log(error);
+//   }
+//   const imagesUrl = data.map((image) => {
+//     return {url: publicImageUrl + image.name, name: image.name}
+//   });
+//   imagesUrl.unshift({name: ''})
 
-  return { imagesUrl };
-}
-
+//   return { imagesUrl };
+// }

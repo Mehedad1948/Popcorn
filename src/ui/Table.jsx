@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import Loading from './Loading';
+import SpinnerMini from './SpinnerMini';
 // import SpinnerMini from '../ui/SpinnerMini';
 
 export const TableContext = createContext();
@@ -16,7 +16,6 @@ const tableStyle = {
 };
 
 function Table({ children, columns, style = 'primary' }) {
-
   return (
     <TableContext.Provider value={{ columns, style }}>
       <div
@@ -64,12 +63,17 @@ function Row({ children, className = '' }) {
 }
 
 function Body({ data, render, isLoading }) {
-  if (isLoading)
+  if (isLoading) {
     return (
-      <tbody>
-        <Loading />
+      <tbody className='flex  py-2 sm:py-4'>
+        <tr>
+          <td className='px-8'>
+            <SpinnerMini />
+          </td>
+        </tr>
       </tbody>
     );
+  }
 
   if (!data?.length)
     return (

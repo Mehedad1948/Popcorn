@@ -21,6 +21,9 @@ export function useMovie(params) {
   let count;
   let filterdCount;
 
+  //  Pagination
+    // const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
+
   let { data, isLoading } = useQuery({
     queryFn: getMovies,
     queryKey: ['movies'],

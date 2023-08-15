@@ -1,15 +1,18 @@
 import Table from './Table';
 import { useDeleteMovie } from '../hooks/useDeleteMovie';
 import { useEffect, useState } from 'react';
+import ModalB from './ModalB';
+import ConfirmDelete from './ConfirmDelete';
 
 function RowBody({ movie, index, userName }) {
-  const { deleteMovie, isLoading } = useDeleteMovie();
+  const { imdb, mehdi, mehrdad, ali, total, year, id } = movie;
+  const { deleteMovie, isDeleting } = useDeleteMovie();
   const [shouldHide, setShouldHide] = useState(false);
   const [isEveryBodyRated, setIsEveryBodyRated] = useState(false);
 
   useEffect(() => {
     if (movie[userName] === 0) setShouldHide(true);
-    if (movie.ali !== 0 && movie.mehdi !== 0 && movie.mehrdad !== 0) {
+    if (ali !== 0 && mehdi !== 0 && mehrdad !== 0) {
       setIsEveryBodyRated(true);
     }
   }, [shouldHide, userName, movie]);
@@ -21,45 +24,41 @@ function RowBody({ movie, index, userName }) {
 
   return (
     <Table.Row>
-      <td>{index + 1}</td>
+      <td className='!text-left sm:!text-center'>{index + 1}</td>
       <td className='text-left'>
-        {movie.movie} - {movie.year}
+        {movie.movie} - {year}
       </td>
       <td
         className={
-          shouldHide && userName !== 'ali' && movie.ali !== 0
-            ? 'blur-[5px]'
-            : ''
+          shouldHide && userName !== 'ali' && ali !== 0 ? 'blur-[5px]' : ''
         }
       >
         <span
           className=' border-b-2  px-2 rounded-full'
           style={{
-            borderColor: setColor(movie.ali),
+            borderColor: setColor(ali),
           }}
         >
-          {movie.ali}
+          {ali}
         </span>
       </td>
       <td
         className={
-          shouldHide && userName !== 'mehdi' && movie.mehdi !== 0
-            ? 'blur-[5px]'
-            : ''
+          shouldHide && userName !== 'mehdi' && mehdi !== 0 ? 'blur-[5px]' : ''
         }
       >
         <span
           className=' border-b-2  px-2 rounded-full'
           style={{
-            borderColor: setColor(movie.mehdi),
+            borderColor: setColor(mehdi),
           }}
         >
-          {movie.mehdi}
+          {mehdi}
         </span>
       </td>
       <td
         className={
-          shouldHide && userName !== 'mehrdad' && movie.mehrdad !== 0
+          shouldHide && userName !== 'mehrdad' && mehrdad !== 0
             ? 'blur-[5px]'
             : ''
         }
@@ -67,48 +66,55 @@ function RowBody({ movie, index, userName }) {
         <span
           className=' border-b-2  px-2 rounded-full'
           style={{
-            borderColor: setColor(movie.mehrdad),
+            borderColor: setColor(mehrdad),
           }}
         >
-          {movie.mehrdad}
+          {mehrdad}
         </span>
       </td>
       <td className='flex justify-center sm:justify-start gap-3'>
         <span
           className={
-            (setIsEveryBodyRated ? 'blur-[5px]' : '') +
+            (!isEveryBodyRated ? 'blur-[5px]' : '') +
             ' ' +
             'border-b-2 h-fit px-2 rounded-full'
           }
           style={{
-            borderColor: setColor(movie.total),
+            borderColor: setColor(total),
           }}
         >
-          {movie.total}
+          {total}
         </span>
-        {movie.total < 6 && !setIsEveryBodyRated && (
+        {total < 6 && isEveryBodyRated && (
           <img className='h-7 rounded-full' src='/pish.jpg' alt='💩' />
         )}
-        {movie.total > +8.5 && <span>🌟</span>}
+        {total >= 8.4 && total < 9.4 && <span>🌟</span>}
+        {total >= 9.4 && total <= 10 && <span>🦄</span>}
       </td>
       <td>
         <span
           className=' border-b-2  px-2 rounded-full'
           style={{
-            borderColor: setColor(movie.imdb),
+            borderColor: setColor(imdb),
           }}
         >
-          {movie.imdb}
+          {imdb}
         </span>
       </td>
       <td>
-        <button
-          onClick={() => deleteMovie(movie.id)}
-          className='hover:bg-rose-500/20 text-[#ff0064]
-                      !font-medium px-2.5 py-0.5 rounded'
-        >
-          Delete
-        </button>
+        <ModalB>
+          <ModalB.Open opens='confirm'>
+            <button
+              className='hover:bg-rose-500/20 text-[#ff0064]
+          !font-medium px-2.5 py-0.5 rounded'
+            >
+              {isDeleting ? 'Deleting...' : 'Delete'}
+            </button>
+          </ModalB.Open>
+          <ModalB.Window name='confirm'>
+            <ConfirmDelete onConfirm={() => deleteMovie(id)} movie={movie.movie} />
+          </ModalB.Window>
+        </ModalB>
       </td>
     </Table.Row>
   );

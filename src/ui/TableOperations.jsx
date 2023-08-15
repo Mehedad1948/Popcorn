@@ -15,7 +15,7 @@ const TableOperations = memo(function () {
   }
 
   return (
-    <div className='flex justify-between sm:justify-end flex-wrap py-2 gap-y-2 sm:gap-3'>
+    <div className='flex justify-between sm:justify-end flex-wrap py-3 sm:py-4 gap-y-2 sm:gap-3'>
       {/* <div className="flex items-center gap-3">
         <Filter
           filterField="status"

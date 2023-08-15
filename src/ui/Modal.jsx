@@ -1,4 +1,7 @@
+import { useOutsideClick } from '../utils/useOutsideClick';
+
 function Modal({ year, movie, imdb, watchedTogether, setShowModal, onConfirm, showModal }) {
+  const ref = useOutsideClick(() => setShowModal(false));
   return (
     <div
       className={
@@ -9,18 +12,19 @@ function Modal({ year, movie, imdb, watchedTogether, setShowModal, onConfirm, sh
       }
     >
       <div
+      ref={ref}
         className={
           (showModal ? 'translate-y-0 delay-150' : 'translate-y-full') +
           ' ' +
           `bg-[#333] !w-screen  rounded-lg sm:translate-y-0 sm:max-w-lg  flex flex-col gap-1 divide-y transition-transform duration-300 
            shadow-lg shadow-indigo-900/50 divide-[#6a4ebd]  sm:relative px-4
-           fixed bottom-0 right-0 z-30 pb-16 sm:pb-2`
+           fixed bottom-0 right-0 z-30 pb-8 sm:pb-2`
         }
       >
         <ConfirmRow label='Movie' data={movie} />
         <ConfirmRow label='Year' data={year} />
         <ConfirmRow label='IMDB Rate' data={imdb} />
-        <ConfirmRow label='Watched togeter' data={watchedTogether ? 'Yes' : 'No'} />
+        <ConfirmRow label='Watched Togeter' data={watchedTogether ? 'Yes' : 'No'} />
         <div className='flex items-center py-2 gap-3 justify-end'>
           <button
             onClick={() => setShowModal(false)}

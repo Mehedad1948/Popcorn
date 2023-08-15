@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { useAddMovie } from '../hooks/useAddMovie';
 import { toast } from 'react-hot-toast';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 import Modal from './Modal';
 
 function AddMovie() {
   const [showModal, setShowModal] = useState(false);
-  const [movie, setmovie] = useState('');
-  const [year, setYear] = useState(2023);
-  const [imdb, setImdb] = useState(5);
+  const [movie, setMovie] = useState('');
+  const [year, setYear] = useState(20);
+  const [imdb, setImdb] = useState(7);
   const [watchedTogether, setWatchedTogether] = useState(false);
 
   const { addMovie, isAddingMovie } = useAddMovie();
@@ -55,11 +56,21 @@ function AddMovie() {
         <FormInput label='Movie Name'>
           <input
             value={movie}
-            onChange={(e) => setmovie(e.target.value)}
+            onChange={(e) => setMovie(e.target.value)}
             type='text'
             minLength={3}
             required
           />
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setMovie('');
+            }}
+            className='text-lg sm:text-xl text-blue-200 cursor-pointer 
+                      absolute right-2 top-1/2 tr sm:-translate-y-1/2 translate-y-1/4'
+          >
+            <AiOutlineCloseCircle />
+          </button>
         </FormInput>
         <FormInput label='Release Year'>
           <input
@@ -95,7 +106,7 @@ function AddMovie() {
           className='bg-[#6741d9] w-full sm:w-fit px-3 py-2 rounded cursor-pointer
                 hover:bg-[#5434b6] col-span-2 mr-0 mx-auto'
         >
-          Add Movie
+          {isAddingMovie ? 'Adding Movie...' : 'Add Movie'}
         </button>
       </form>
     </div>
@@ -106,7 +117,7 @@ function FormInput({ children, label }) {
   return (
     <label
       className='peer grid place-items-center gap-1 sm:grid-cols-[0.4fr,_1fr] font-medium
-                  text-left text-white sm:place-items-start'
+                  text-left text-white sm:justify-items-start relative'
     >
       <span className='peer-focus:text-[#6741d9] w-max'>{label}</span>
       {children}

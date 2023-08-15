@@ -8,7 +8,7 @@
                 text-center sm:text-left focus:outline-none focus:border-[#6741d9];
   }
   body {
-    @apply bg-gradient-to-tr from-blue-950 to-black bg-fixed p-3 sm:p-6 font-medium text-white
+    @apply bg-gradient-to-tr from-blue-950 to-black bg-fixed font-medium text-white
           cursor-default selection:bg-purple-700 tracking-wide;
   }
 
@@ -27,8 +27,7 @@
 
 .loader {
   position: relative;
-  width: 100px;
-  height: 100px;
+
 }
 
 .loader:before , .loader:after{
@@ -47,3 +46,30 @@
   0% {  transform: rotate(0)}
   100% { transform: rotate(360deg)}
 }
+
+
+
+/* For WebKit-based browsers */
+::-webkit-scrollbar {
+  width: 15px; /* width of the scrollbar */
+  height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #250744; /* color of the track behind the scrollbar */
+  box-shadow: inset 0 0 4px rgba(61, 35, 134, 0.301);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #6241c5; /* color of the scrollbar handle */
+  box-shadow: inset 0 0 4px #06303d;
+  border-radius: 8px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #5234ac; /* color of the scrollbar handle on hover */
+}
+

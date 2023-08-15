@@ -25,12 +25,12 @@ function RateMovie() {
     <Loading />;
   }
   return (
-    <div className='max-w-2xl'>
+    <div className='max-w-2xl '>
       <div className='pb-3 flex justify-end'>
         <button
           onClick={() => setFilter((s) => !s)}
           className='bg-[#6741d9] text-sm sm:text-base w-fit px-3 py-3 rounded cursor-pointer text-white
-           hover:bg-[#5434b6] col-span-2 mr-0 mx-auto font-semibold'
+           hover:bg-[#5434b6] col-span-2 mr-0 mx-auto font-semibold mt-2.5 sm:mt-3'
         >
           {filter ? 'Show all' : 'Show unrated movies'}
         </button>

@@ -4,7 +4,7 @@ import { toast } from 'react-hot-toast';
 
 export function useDeleteMovie(params) {
   const queryClient = useQueryClient();
-  const { mutate: deleteMovie, isLoading } = useMutation({
+  const { mutate: deleteMovie, isLoading: isDeleting } = useMutation({
     mutationFn: deletMovieApi,
     onSuccess: (data) => {
       queryClient.invalidateQueries({
@@ -17,5 +17,5 @@ export function useDeleteMovie(params) {
     },
   });
 
-  return { deleteMovie, isLoading };
+  return { deleteMovie, isDeleting };
 }

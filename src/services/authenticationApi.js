@@ -27,3 +27,16 @@ export async function logout() {
   const { error } = await supabase.auth.signOut();
   if (error) throw new Error(error.message);
 }
+
+export async function getVersion(params) {
+  let { data: newVersion, error } = await supabase
+    .from('settings')
+    .select('version')
+    .single();
+
+  if (error) {
+    console.log(error);
+  }
+
+  return newVersion;
+}
