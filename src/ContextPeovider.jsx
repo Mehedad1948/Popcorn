@@ -1,9 +1,11 @@
-import { createContext } from 'react';
+import { createContext, useState } from 'react';
 
-const appContext = createContext();
+export const appContext = createContext();
 
 function ContextPeovider({ children }) {
-  return <div>{children}</div>;
+  const [showSearchbar, setShowSearchbar] = useState(false);
+
+  return <appContext.Provider value={{showSearchbar, setShowSearchbar}}>{children}</appContext.Provider>;
 }
 
 export default ContextPeovider;

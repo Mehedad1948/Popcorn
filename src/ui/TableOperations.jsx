@@ -2,11 +2,14 @@ import { useSearchParams } from 'react-router-dom';
 // import Filter from './Filter';
 import SortBy from './SortBy';
 import FilterButton from './FilterButton';
-import { memo, useState } from 'react';
+import { memo, useContext, useState } from 'react';
+import SearchBar from './SearchBar';
+import { appContext } from '../ContextPeovider';
 
 const TableOperations = memo(function () {
   const [serachParams, setSearchParams] = useSearchParams();
   const [watchedTogether, setWatchedTogether] = useState(false);
+  const { showSearchbar, setShowSearchbar } = useContext(appContext);
 
   function handleClick(value) {
     serachParams.set('watchedTogether', !watchedTogether);
@@ -15,7 +18,17 @@ const TableOperations = memo(function () {
   }
 
   return (
-    <div className='flex justify-between sm:justify-end flex-wrap py-3 sm:py-4 gap-y-2 sm:gap-3'>
+    <div
+      className={
+        (showSearchbar
+          ? 'grid-rows-[43px,auto] gap-y-2'
+          : 'grid-rows-[0px,auto]') +
+        ' ' +
+        `grid sm:grid-rows-[auto,auto] sm:grid-cols-[1fr,auto,auto,auto] gap-x-4 items-center
+     sm:justify-end flex-wrap py-2 sm:py-4 overflow-hidden
+     transition-all duration-300 px-1 sm:gap-x-3 justify-between`
+      }
+    >
       {/* <div className="flex items-center gap-3">
         <Filter
           filterField="status"
@@ -28,7 +41,9 @@ const TableOperations = memo(function () {
         />
       
       </div> */}
-      <FilterButton  onClick={() => handleClick()} active={watchedTogether}>
+      <SearchBar />
+      {/* <span className='grow'></span> */}
+      <FilterButton onClick={() => handleClick()} active={watchedTogether}>
         {watchedTogether ? `Show All` : `Together`}
       </FilterButton>
       <SortBy
@@ -45,6 +60,10 @@ const TableOperations = memo(function () {
         options={[
           { value: 'total-desc', label: 'Total ⬇️' },
           { value: 'total-asc', label: 'Total ⬆️' },
+          { value: 'variance-desc', label: 'Variance ⬇️' },
+          { value: 'variance-asc', label: 'Variance ⬆️' },
+          { value: 'year-desc', label: 'Year ⬇️' },
+          { value: 'year-asc', label: 'Year ⬆️' },
           { value: 'imdb-desc', label: 'IMDB ⬇️' },
           { value: 'imdb-asc', label: 'IMDB ⬆️' },
         ]}

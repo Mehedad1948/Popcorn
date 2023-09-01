@@ -4,6 +4,9 @@ import { userContext } from './ProtectedRoute';
 import Logo from './Logo';
 import AudioPlayer from './AudioPlayer';
 import { useMovie } from '../hooks/useMovies';
+import { appContext } from '../ContextPeovider';
+import { BiSearchAlt } from 'react-icons/bi';
+import { PiSignInDuotone } from 'react-icons/pi';
 
 function AppLayout() {
   const { data } = useMovie();
@@ -48,19 +51,20 @@ function NavBar({ videoProcess, unratedMovies, userName }) {
         >
           <NavLink to='/'>Home</NavLink>
           <NavLink to='/addMovie'>Add Movie</NavLink>
-          <NavLink  className='flex items-center'  to='/rate'>
-            <span>
-            Rate Movie
-            </span>
-            <span
-              className='ml-1 aspect-square  rounded-full relative z-10
+          <NavLink className='flex items-center' to='/rate'>
+            <span>Rate Movie</span>
+            {unratedMovies > 0 && (
+              <span
+                className='ml-1 aspect-square  rounded-full relative z-10
                            text-sm w-5 bg-orange-500 inline-block text-center'
-            >
-              {unratedMovies}
-            </span>
+              >
+                {unratedMovies}
+              </span>
+            )}
           </NavLink>
           <Link to='/login'>Login</Link>
         </div>
+
         <span className='capitalize'>{userName}</span>
       </div>
       <div
@@ -73,7 +77,7 @@ function NavBar({ videoProcess, unratedMovies, userName }) {
 }
 
 function Footer({ unratedMovies }) {
-  console.log(unratedMovies);
+  const { showSearchbar, setShowSearchbar } = useContext(appContext);
   return (
     <div
       className='fixed bottom-0 border-t border-purple-700/70 left-0 w-full bg-purple-700/20 backdrop-blur-lg py-3 sm:hidden
@@ -82,17 +86,29 @@ function Footer({ unratedMovies }) {
       <NavLink to='/'>Home</NavLink>
       <NavLink to='/addMovie'>Add Movie</NavLink>
       <NavLink className='flex items-center' to='/rate'>
-        <span>
-        Rate Movie
-        </span>
-        <span
-          className='ml-1 aspect-square  rounded-full relative z-10
+        <span>Rate Movie</span>
+        {unratedMovies > 0 && (
+          <span
+            className='ml-1 aspect-square  rounded-full relative z-10
                            text-xs w-4 bg-orange-500 inline-block text-center'
-        >
-          {unratedMovies}
-        </span>
+          >
+            {unratedMovies}
+          </span>
+        )}
       </NavLink>
-      <Link to='/login'>Login</Link>
+      <Link to='/login'>
+        <PiSignInDuotone />
+      </Link>
+      <button
+        className={
+          (showSearchbar ? 'bg-purple-700' : '') +
+          ' ' +
+          `px-1 rounded-full  aspect-square`
+        }
+        onClick={() => setShowSearchbar((s) => !s)}
+      >
+        <BiSearchAlt />
+      </button>
     </div>
   );
 }

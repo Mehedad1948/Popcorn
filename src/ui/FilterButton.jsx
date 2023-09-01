@@ -9,7 +9,7 @@ const FilterButton = memo(function ({
 }) {
   return (
     <button
-      className={`rounded bg-purple-700 px-2 py-1 text-sm sm:text-base 
+      className={`rounded bg-purple-700 px-3 py-1.5 text-sm sm:text-base 
          font-semibold text-white  sm:w-fit`}
       onClick={onClick}
       disabled={disabled}

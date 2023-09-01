@@ -29,6 +29,20 @@ export function useMovie(params) {
     queryKey: ['movies'],
   });
 
+  function calculateVariance(arr) {
+    const n = arr.length;
+    if (n <= 1) return 0;
+
+    const nonZeros = arr.filter((rating) => rating !== 0).length;
+
+    const mean = arr.reduce((sum, x) => sum + x, 0) / nonZeros;
+    const squaredDifferences = arr.map((x) => x !== 0 && (x - mean) ** 2);
+    const variance =
+      squaredDifferences.reduce((sum, x) => sum + x, 0) / nonZeros;
+
+    return variance;
+  }
+
   if (data) {
     data = data.map((movie) => {
       const nonZeros = [movie.mehdi, movie.ali, movie.mehrdad].filter(
@@ -38,6 +52,17 @@ export function useMovie(params) {
         (movie.mehdi + movie.ali + movie.mehrdad) /
         (nonZeros === 0 ? 1 : nonZeros);
       movie.total = average.toFixed(2);
+      return movie;
+    });
+
+    data = data.map((movie) => {
+      const variance = calculateVariance([
+        movie.mehdi,
+        movie.ali,
+        movie.mehrdad,
+      ]);
+      movie.variance = variance;
+
       return movie;
     });
 

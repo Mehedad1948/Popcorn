@@ -1,18 +1,37 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useMovie } from '../hooks/useMovies';
 import RowBody from './RowBody';
 import Table from './Table';
 // import Button from './Button';
 import TableOperations from './TableOperations';
 import { userContext } from './ProtectedRoute';
+import { useSearchParams } from 'react-router-dom';
 // import { useSearchParams } from 'react-router-dom';
 // import { HiChevronLeft, HiChevronRight } from 'react-icons/hi2';
 // import { PAGE_SIZE } from '../utils/constants';
 
 function Home() {
   const { data, count, isLoading } = useMovie();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const [filterdData, setFilterdData] = useState([]);
+
+  const searchedInput = searchParams.get('search') || '';
 
   const { userName } = useContext(userContext);
+
+  useEffect(() => {
+    setFilterdData(data);
+  }, data);
+
+  useEffect(() => {
+    setFilterdData(
+      data?.filter((item) =>
+        item.movie.toLowerCase().includes(searchedInput.toLowerCase())
+      )
+    );
+    console.log(searchedInput, filterdData);
+  }, [searchedInput]);
 
   return (
     <Main>
@@ -44,7 +63,7 @@ function Home() {
           </Table.Header>
           <Table.Body
             isLoading={isLoading}
-            data={data}
+            data={filterdData}
             render={(movie, index) => (
               <RowBody
                 userName={userName}
