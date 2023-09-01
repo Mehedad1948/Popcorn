@@ -4,6 +4,7 @@ import Loading from './Loading';
 import Table from './Table';
 import { useRate } from '../hooks/useRate';
 import { userContext } from './ProtectedRoute';
+// import { MdOutlineVisibilityOff } from 'react-icons/md';
 
 function RateMovie() {
   const { data, isLoading } = useMovie();
@@ -71,6 +72,8 @@ function RateMovie() {
 
 function RowRate({ index, movie, userName, isRating, hadleRate, ratingMovie }) {
   const [movieRate, setMovieRate] = useState(movie[userName]);
+  // const [isWatched, setIsWatched] = useState(true);
+  
   return (
     <Table.Row>
       <td className='flex items-center justify-center sm:justify-start'>
@@ -80,6 +83,7 @@ function RowRate({ index, movie, userName, isRating, hadleRate, ratingMovie }) {
         {movie.movie}
       </td>
       <td className='flex items-center justify-center'>
+        {/* <MdOutlineVisibilityOff /> */}
         <input
           className='text-center w-16 sm:w-28 h-fit mx-auto py-0.5 sm:py-1'
           type='number'

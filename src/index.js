@@ -28,8 +28,8 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.addEventListener('controllerchange', () => {
     // The service worker has become the controller, indicating an update
     // Display a notification to inform the user about the update
- 
   });
 }
+
 
 serviceWorkerRegistration.register();

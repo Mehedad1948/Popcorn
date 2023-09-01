@@ -7,8 +7,6 @@
 // You can also remove this file if you'd prefer not to use a
 // service worker, and the Workbox build step will be skipped.
 
-
-
 import { clientsClaim } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
@@ -53,7 +51,8 @@ registerRoute(
 // precache, in this case same-origin .png requests like those from in public/
 registerRoute(
   // Add in any other file extensions or routing criteria as needed.
-  ({ url }) => url.origin === self.location.origin && url.pathname.endsWith('.png'), // Customize this strategy as needed, e.g., by changing to CacheFirst.
+  ({ url }) =>
+    url.origin === self.location.origin && url.pathname.endsWith('.png'), // Customize this strategy as needed, e.g., by changing to CacheFirst.
   new StaleWhileRevalidate({
     cacheName: 'images',
     plugins: [
@@ -78,8 +77,7 @@ registerRoute(
   })
 );
 
-
-self.addEventListener('install', event => {
+self.addEventListener('install', (event) => {
   console.log('Service Worker installed');
   // Your installation logic here
 });
@@ -98,17 +96,28 @@ self.addEventListener('fetch', (event) => {
   );
 });
 
-
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
-self.addEventListener('message', (event) => {
+self.addEventListener('message', async (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
+
+   
+    console.log('check sw click');
+    
+    const permission = await self.registration.pushManager.permissionState({ userVisibleOnly: true });
+
+    if (permission === 'granted') {
+      self.registration.showNotification('Paradiso', {
+        body: 'App updated successfully 🎉',
+        icon: '/favicon-16x16.png',
+      });
+    }
     // Inform the client that the update has finished.
     event.waitUntil(
       self.clients.claim().then(() => {
-        self.clients.matchAll().then(clients => {
-          clients.forEach(client => {
+        self.clients.matchAll().then((clients) => {
+          clients.forEach((client) => {
             client.postMessage({ type: 'UPDATE_FINISHED' });
           });
         });
@@ -116,7 +125,5 @@ self.addEventListener('message', (event) => {
     );
   }
 });
-
-
 
 // Any other custom service worker logic can go here.

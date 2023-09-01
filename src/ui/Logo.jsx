@@ -4,6 +4,7 @@ function Logo() {
   const { isNewVersionAvailable, currentVersionState } = useCheckVersion();
 
   const handleUpdateClick = () => {
+    console.log('click');
     navigator.serviceWorker.ready.then((registration) => {
       registration.active.postMessage({ type: 'SKIP_WAITING' });
     });

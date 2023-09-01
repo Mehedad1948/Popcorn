@@ -16,6 +16,16 @@ export default function AudioPlayer({ setCurrentTime, setDuration }) {
   }
 
   function handlePlay(params) {
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: 'S.T.A.Y',
+      artit: 'Hans Zimmer',
+      album: 'Interstellar',
+      artwork: [{
+        "src": "inticon.jpg",
+        "type": "image/jpg",
+        "sizes": "192x192"
+      },]
+    })
     setIsPlaying((s) => !s);
     if (!isLoaded) loadAudio();
     setIsLaded(true);

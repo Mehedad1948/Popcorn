@@ -75,7 +75,7 @@ function RowBody({ movie, index, userName }) {
       <td className='flex justify-center sm:justify-start gap-3'>
         <span
           className={
-            (!isEveryBodyRated ? 'blur-[5px]' : '') +
+            (shouldHide ? 'blur-[5px]' : '') +
             ' ' +
             'border-b-2 h-fit px-2 rounded-full'
           }
@@ -85,11 +85,11 @@ function RowBody({ movie, index, userName }) {
         >
           {total}
         </span>
-        {total < 6 && isEveryBodyRated && (
+        {total < 6 && !shouldHide && (
           <img className='h-7 rounded-full' src='/pish.jpg' alt='💩' />
         )}
-        {total >= 8.4 && total < 9.4 && <span>🌟</span>}
-        {total >= 9.4 && total <= 10 && <span>🦄</span>}
+        {total >= 8.4 && total < 9.4 && !shouldHide && <span>💫</span>}
+        {total >= 9.4 && total <= 10 && !shouldHide && <span>🦄</span>}
       </td>
       <td>
         <span

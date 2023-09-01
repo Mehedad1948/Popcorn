@@ -30,7 +30,7 @@ export function useCheckVersion(params) {
               console.log('event', event);
               if (event.data && event.data.type === 'UPDATE_FINISHED') {
                 // Update your UI to inform the user that the update has finished.
-                toast.success('🎉 App was successfully updated')
+                // toast.success('🎉 App was successfully updated')
               }
             });
           }

@@ -3,25 +3,35 @@ import { Link, NavLink, Outlet } from 'react-router-dom';
 import { userContext } from './ProtectedRoute';
 import Logo from './Logo';
 import AudioPlayer from './AudioPlayer';
+import { useMovie } from '../hooks/useMovies';
 
 function AppLayout() {
+  const { data } = useMovie();
+  const { userName } = useContext(userContext);
+  let unratedMovies;
+  if (data) {
+    unratedMovies = data.filter((movie) => movie[userName] === 0).length;
+  }
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const videoProcess = (currentTime / duration) * 100;
   return (
     <div>
-      <NavBar videoProcess={videoProcess} />
+      <NavBar
+        videoProcess={videoProcess}
+        unratedMovies={unratedMovies}
+        userName={userName}
+      />
       <div className='relative pb-16 sm:mb-4 mx-3 lg:mx-6'>
         <Outlet />
       </div>
       <AudioPlayer setDuration={setDuration} setCurrentTime={setCurrentTime} />
-      <Footer />
+      <Footer unratedMovies={unratedMovies} />
     </div>
   );
 }
 
-function NavBar({ videoProcess }) {
-  const { userName } = useContext(userContext);
+function NavBar({ videoProcess, unratedMovies, userName }) {
   return (
     <nav
       className='nav-bar relative sm:mx-3 sm:mt-3 lg:mt-6 lg:mx-6  overflow-hidden
@@ -38,7 +48,17 @@ function NavBar({ videoProcess }) {
         >
           <NavLink to='/'>Home</NavLink>
           <NavLink to='/addMovie'>Add Movie</NavLink>
-          <NavLink to='/rate'>Rate Movie</NavLink>
+          <NavLink  className='flex items-center'  to='/rate'>
+            <span>
+            Rate Movie
+            </span>
+            <span
+              className='ml-1 aspect-square  rounded-full relative z-10
+                           text-sm w-5 bg-orange-500 inline-block text-center'
+            >
+              {unratedMovies}
+            </span>
+          </NavLink>
           <Link to='/login'>Login</Link>
         </div>
         <span className='capitalize'>{userName}</span>
@@ -52,7 +72,8 @@ function NavBar({ videoProcess }) {
   );
 }
 
-function Footer(params) {
+function Footer({ unratedMovies }) {
+  console.log(unratedMovies);
   return (
     <div
       className='fixed bottom-0 border-t border-purple-700/70 left-0 w-full bg-purple-700/20 backdrop-blur-lg py-3 sm:hidden
@@ -60,7 +81,17 @@ function Footer(params) {
     >
       <NavLink to='/'>Home</NavLink>
       <NavLink to='/addMovie'>Add Movie</NavLink>
-      <NavLink to='/rate'>Rate Movie</NavLink>
+      <NavLink className='flex items-center' to='/rate'>
+        <span>
+        Rate Movie
+        </span>
+        <span
+          className='ml-1 aspect-square  rounded-full relative z-10
+                           text-xs w-4 bg-orange-500 inline-block text-center'
+        >
+          {unratedMovies}
+        </span>
+      </NavLink>
       <Link to='/login'>Login</Link>
     </div>
   );

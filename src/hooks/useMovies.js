@@ -22,7 +22,7 @@ export function useMovie(params) {
   let filterdCount;
 
   //  Pagination
-    // const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
+  // const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
 
   let { data, isLoading } = useQuery({
     queryFn: getMovies,
@@ -31,7 +31,12 @@ export function useMovie(params) {
 
   if (data) {
     data = data.map((movie) => {
-      const average = (movie.mehdi + movie.ali + movie.mehrdad) / 3;
+      const nonZeros = [movie.mehdi, movie.ali, movie.mehrdad].filter(
+        (i) => i !== 0
+      ).length;
+      const average =
+        (movie.mehdi + movie.ali + movie.mehrdad) /
+        (nonZeros === 0 ? 1 : nonZeros);
       movie.total = average.toFixed(2);
       return movie;
     });
@@ -40,15 +45,11 @@ export function useMovie(params) {
       return (a[sortBy.feild] - b[sortBy.feild]) * directionOperator;
     });
 
-    
-    
     if (watchedTogether) {
-      data = data.filter(
-        (movie) => movie.watchedTogether 
-        );
-      }
-      
-      count = data.length;
+      data = data.filter((movie) => movie.watchedTogether);
+    }
+
+    count = data.length;
   }
   return { data, isLoading, count, filterdCount };
 }

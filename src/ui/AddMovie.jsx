@@ -31,6 +31,10 @@ function AddMovie() {
     }
     addMovie({ year, imdb, movie, watchedTogether });
     setShowModal(false);
+    setMovie('');
+    setYear(20);
+    setImdb(7);
+    setWatchedTogether(false)
   }
 
   function handleSubmit(e) {
