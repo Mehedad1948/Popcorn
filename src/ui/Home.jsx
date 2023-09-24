@@ -30,7 +30,6 @@ function Home() {
         item.movie.toLowerCase().includes(searchedInput.toLowerCase())
       )
     );
-    console.log(searchedInput, filterdData);
   }, [searchedInput]);
 
   return (

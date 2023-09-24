@@ -1,4 +1,4 @@
-@tailwind base;
+ @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -20,23 +20,22 @@
   box-sizing: border-box;
 }
 
-
+body,
+html,
+#root {
+  height: 100%;
+}
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Montserrat", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Montserrat', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
   color: var(--color-text);
-  
 }
 
 /* ******* */
 
-
-
 .main {
-
-  height: calc(100vh - 7.2rem - 3 * 2.4rem);
   display: flex;
   gap: 2.4rem;
   justify-content: center;
@@ -64,8 +63,6 @@ body {
   align-items: center;
   gap: 0.8rem;
 }
-
-
 
 .search {
   justify-self: center;

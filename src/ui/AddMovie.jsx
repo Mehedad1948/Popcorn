@@ -3,6 +3,7 @@ import { useAddMovie } from '../hooks/useAddMovie';
 import { toast } from 'react-hot-toast';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import Modal from './Modal';
+import FormInput from './FormInput';
 
 function AddMovie() {
   const [showModal, setShowModal] = useState(false);
@@ -34,7 +35,7 @@ function AddMovie() {
     setMovie('');
     setYear(20);
     setImdb(7);
-    setWatchedTogether(false)
+    setWatchedTogether(false);
   }
 
   function handleSubmit(e) {
@@ -114,18 +115,6 @@ function AddMovie() {
         </button>
       </form>
     </div>
-  );
-}
-
-function FormInput({ children, label }) {
-  return (
-    <label
-      className='peer grid place-items-center gap-1 sm:grid-cols-[0.4fr,_1fr] font-medium
-                  text-left text-white sm:justify-items-start relative'
-    >
-      <span className='peer-focus:text-[#6741d9] w-max'>{label}</span>
-      {children}
-    </label>
   );
 }
 

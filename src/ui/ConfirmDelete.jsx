@@ -1,9 +1,9 @@
-function ConfirmDelete({ onCloseModal, movie, onConfirm }) {
+function ConfirmDelete({ onCloseModal, name, onConfirm }) {
   return (
     <div>
-      <p className='text-blue-100 mb-2 sm:text-lg'>Are you sure you wanna delete movie:</p>
+      <p className='text-blue-100 mb-2 sm:text-lg'>Are you sure you wanna delete:</p>
       <p className='text-[#ff7535] mx-auto  font-semibold tracking-wider sm:text-lg'>
-        {movie}
+        {name}
       </p>
       <div className='flex items-center py-2 gap-3 justify-end'>
         <button
@@ -14,11 +14,14 @@ function ConfirmDelete({ onCloseModal, movie, onConfirm }) {
           Cancel
         </button>
         <button
-          onClick={onConfirm}
+          onClick={() => {
+            onConfirm()
+            onCloseModal()
+          }}
           className='bg-[#6741d9] w-fit px-3 py-2 rounded cursor-pointer
                   hover:bg-[#5434b6] col-span-2'
         >
-          Delete Movie
+          Delete
         </button>
       </div>
     </div>

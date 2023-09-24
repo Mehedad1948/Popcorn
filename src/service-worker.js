@@ -82,19 +82,19 @@ self.addEventListener('install', (event) => {
   // Your installation logic here
 });
 
-self.addEventListener('fetch', (event) => {
-  // Exclude navigation requests from caching.
-  if (event.request.mode === 'navigate') {
-    return;
-  }
+// self.addEventListener('fetch', (event) => {
+//   // Exclude navigation requests from caching.
+//   if (event.request.mode === 'navigate') {
+//     return;
+//   }
 
-  // Handle non-navigation requests, including cached music files.
-  event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      return cachedResponse || fetch(event.request);
-    })
-  );
-});
+//   // Handle non-navigation requests, including cached music files.
+//   event.respondWith(
+//     caches.match(event.request).then((cachedResponse) => {
+//       return cachedResponse || fetch(event.request);
+//     })
+//   );
+// });
 
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})

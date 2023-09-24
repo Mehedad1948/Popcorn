@@ -55,6 +55,8 @@ export async function deletMovie(id) {
   }
 }
 
+
+
 // const publicImageUrl =
 //   'https://pryognxulvntjaoeghoc.supabase.co/storage/v1/object/public/public-images/';
 

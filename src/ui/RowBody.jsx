@@ -112,7 +112,7 @@ function RowBody({ movie, index, userName }) {
             </button>
           </ModalB.Open>
           <ModalB.Window name='confirm'>
-            <ConfirmDelete onConfirm={() => deleteMovie(id)} movie={movie.movie} />
+            <ConfirmDelete onConfirm={() => deleteMovie(id)} name={movie.movie} />
           </ModalB.Window>
         </ModalB>
       </td>

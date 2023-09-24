@@ -5,7 +5,7 @@ import { useSearchParams } from 'react-router-dom';
 // const average = (arr) =>
 //   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-export function useMovie(params) {
+export function useMovie() {
   const [searchParams] = useSearchParams();
 
   const sortByRaw = searchParams.get('sortBy') || 'total-desc';

@@ -60,8 +60,8 @@ const TableOperations = memo(function () {
         options={[
           { value: 'total-desc', label: 'Total ⬇️' },
           { value: 'total-asc', label: 'Total ⬆️' },
-          { value: 'variance-desc', label: 'Variance ⬇️' },
-          { value: 'variance-asc', label: 'Variance ⬆️' },
+          { value: 'variance-desc', label: 'Var ⬇️' },
+          { value: 'variance-asc', label: 'Var ⬆️' },
           { value: 'year-desc', label: 'Year ⬇️' },
           { value: 'year-asc', label: 'Year ⬆️' },
           { value: 'imdb-desc', label: 'IMDB ⬇️' },
